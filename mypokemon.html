@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Pokémon</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Applicare il tema selezionato su tutte le pagine
+      document.addEventListener('DOMContentLoaded', () => {
+          const savedTheme = localStorage.getItem('selectedTheme');
+          if (savedTheme) {
+              document.documentElement.setAttribute('data-theme', savedTheme);
+          }
+      });
+  </script>
+</head>
+<body class="bg-gray-100">
+
+  <!-- navbar -->
+
+   <div class="navbar bg-base-100">
+  <div class="flex-1">
+    <a class="btn btn-ghost text-xl" href="index.html">Pokedex</a>
+  </div>
+  <div class="flex-none gap-2">
+    <div class="form-control">
+      <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" />
+    </div>
+    <div class="dropdown dropdown-end">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+        <div class="w-10 rounded-full">
+          <img
+            alt="Tailwind CSS Navbar component"
+            src="https://th.bing.com/th/id/R.fc273ffe3e1d90445fd1e8a11b8c4727?rik=cs%2bhJ88nRuRtKg&riu=http%3a%2f%2fwww.pngall.com%2fwp-content%2fuploads%2f4%2fPokeball-PNG.png&ehk=SlTkupvmcGp6ICnSmKJU8U6wenEOeEmLFPxnNp29K0k%3d&risl=&pid=ImgRaw&r=0" />
+        </div>
+      </div>
+      <ul
+        tabindex="0"
+        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+        <li>
+          <a class="justify-between" href="mypokemon.html">
+            mypokemon
+            <span class="badge">New</span>
+          </a>
+        </li>
+        <li><a href="settings.html">Settings</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+    <!-- Main Content -->
+    <div class="container mx-auto mt-8 p-4 bg-white shadow-lg rounded-lg">
+        <h1 class="text-2xl font-bold mb-4">My Pokémon Collection</h1>
+        
+        <div id="myPokemonList" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
+            <!-- List of captured Pokémon -->
+        </div>
+    </div>
+
+    <script src="mypokemon.js"></script>
+
+</body>
+</html>

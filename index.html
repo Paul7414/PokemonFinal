@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokédex</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Applicare il tema selezionato su tutte le pagine
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('selectedTheme');
+            if (savedTheme) {
+                document.documentElement.setAttribute('data-theme', savedTheme);
+            }
+        });
+    </script>
+</head>
+<body class="bg-gray-100">
+
+    <div class="navbar bg-base-100">
+        <div class="flex-1">
+          <a class="btn btn-ghost text-xl" href="index.html">Pokedex</a>
+        </div>
+        <div class="flex-none gap-2">
+          <div class="form-control">
+            <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" />
+          </div>
+          <div class="dropdown dropdown-end">
+            <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+              <div class="w-10 rounded-full">
+                <img
+                  alt="Tailwind CSS Navbar component"
+                  src="https://th.bing.com/th/id/R.fc273ffe3e1d90445fd1e8a11b8c4727?rik=cs%2bhJ88nRuRtKg&riu=http%3a%2f%2fwww.pngall.com%2fwp-content%2fuploads%2f4%2fPokeball-PNG.png&ehk=SlTkupvmcGp6ICnSmKJU8U6wenEOeEmLFPxnNp29K0k%3d&risl=&pid=ImgRaw&r=0" />
+              </div>
+            </div>
+            <ul
+              tabindex="0"
+              class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+              <li>
+                <a class="justify-between" href="mypokemon.html">
+                  mypokemon
+                  <span class="badge">New</span>
+                </a>
+              </li>
+              <li><a href="settings.html">Settings</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+
+    <!-- Barra di ricerca -->
+    <div class="search-section mb-6 p-4 flex justify-center">
+        <input type="text" id="pokemonName" class="input input-bordered" placeholder="Cerca un Pokémon" />
+        <button id="searchButton" class="btn btn-primary ml-2">Cerca</button>
+        <button class="btn btn-circle btn-outline" id="clearButton">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+    </div>
+
+    <!-- Dettagli del Pokémon ricercato -->
+    <div id="pokemonDetailsContainer" class="flex justify-center items-center mt-8 hidden">
+        <div class="card bg-base-100 shadow-xl w-96">
+            <figure>
+                <img id="pokemonImage" class="h-48 object-contain" src="" alt="Pokémon" />
+            </figure>
+            <div class="card-body">
+                <h2 id="pokemonNameDetail" class="card-title text-center text-2xl"></h2>
+                <table class="table table-zebra w-full">
+                    <tr>
+                        <td>Tipo</td>
+                        <td id="pokemonTypes"></td>
+                    </tr>
+                    <tr>
+                        <td>Abilità</td>
+                        <td id="pokemonAbilities"></td>
+                    </tr>
+                    <tr>
+                        <td>Altezza</td>
+                        <td id="pokemonHeight"></td>
+                    </tr>
+                    <tr>
+                        <td>Peso</td>
+                        <td id="pokemonWeight"></td>
+                    </tr>
+                </table>
+                <button id="catchButton" class="btn btn-primary w-full">Catch!</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Galleria di Pokémon -->
+    <div id="pokemonGalleryContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
+        <!-- Le card dei Pokémon verranno aggiunte dinamicamente qui -->
+    </div>
+
+    <!-- Modale per i dettagli -->
+<dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+    <div class="modal-box">
+        <h3 id="modalPokemonName" class="text-lg font-bold">Nome Pokémon</h3>
+        <div class="flex justify-center">
+            <img id="modalPokemonImage" class="h-48 object-contain" alt="Pokemon" />
+        </div>
+        <div id="modalPokemonDetails" class="mt-4">
+            <p id="modalPokemonTypes"></p>
+            <p id="modalPokemonAbilities"></p>
+            <p id="modalPokemonHeight"></p>
+            <p id="modalPokemonWeight"></p>
+            <h3 class="mt-4 font-semibold">Statistiche</h3>
+            <div id="modalPokemonStats" class="grid grid-cols-2 gap-4"></div>
+        </div>
+        <div class="modal-action">
+            <form method="dialog">
+                <button class="btn">Chiudi</button>
+            </form>
+        </div>
+    </div>
+</dialog>
+
+
+    <script>
+        // Cambia tema e salva in localStorage
+themeSelector.addEventListener('change', () => {
+    const selectedTheme = themeSelector.value;
+    localStorage.setItem('selectedTheme', selectedTheme); // Salva il tema selezionato
+    document.documentElement.setAttribute('data-theme', selectedTheme); // Applica il tema subito
+});
+    </script>
+
+     <!-- Paginazione -->
+     <div class="flex justify-center items-center mt-5">
+        <button id="randomize" class="btn btn-circle  w-20 h-20 flex justify-center items-center overflow-hidden">
+            <img src="https://i.etsystatic.com/8051029/r/il/c9babe/2198458132/il_fullxfull.2198458132_389a.jpg" 
+                 alt="Randomize" class="object-cover w-full h-full">
+        </button>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>
